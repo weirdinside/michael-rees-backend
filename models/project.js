@@ -24,10 +24,20 @@ const projectSchema = new mongoose.Schema({
       message: "You must enter a valid URL",
     },
   },
+  content: {
+    type: String,
+    required: false,
+    validate: {
+      validator(value){
+        return validator.isURL(value);
+      },
+      message: "The image you uploaded doesn't have a valid URL"
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now,
-    required: false,
+    required: true,
   },
 });
 
