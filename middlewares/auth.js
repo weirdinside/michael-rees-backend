@@ -4,7 +4,7 @@ const { UnauthorizedError } = require("../utils/errors/UnauthorizedError");
 
 module.exports = (req, res, next) => {
   const auth = req.headers.authorization;
-
+  console.log('auth request initiated');
   if (!auth || !auth.startsWith("Bearer ")) {
     return next(new UnauthorizedError("You must be logged in"));
   }

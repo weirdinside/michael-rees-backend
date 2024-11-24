@@ -4,9 +4,13 @@ const validator = require("validator");
 const projectSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: false,
+    required: true,
     minLength: 2,
     maxLength: 30,
+  },
+  showTitle: {
+    type: Boolean,
+    required: true,
   },
   role: {
     type: String,
@@ -24,15 +28,21 @@ const projectSchema = new mongoose.Schema({
       message: "You must enter a valid URL",
     },
   },
-  content: {
+  thumbnail: {
     type: String,
     required: false,
     validate: {
-      validator(value){
-        return validator.isURL(value);
+      validator(value) {
+        if (
+          value === "" ||
+          value.includes(".jpg") ||
+          value.includes(".png") ||
+          value.includes(".jpeg")
+        ) {
+          return true;
+        }
       },
-      message: "The image you uploaded doesn't have a valid URL"
-    }
+    },
   },
   createdAt: {
     type: Date,

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middlewares/auth");
-const { validateProjectBody, validateId } = require("../middlewares/validation");
+const { validateId } = require("../middlewares/validation");
 
 const {
   createProject,
@@ -8,7 +8,7 @@ const {
   deleteProject,
 } = require("../controllers/project");
 
-router.post("/", auth, validateProjectBody, createProject);
+router.post("/", auth, createProject);
 router.delete("/:id", auth, validateId, deleteProject);
 router.get("/", getProjects);
 
