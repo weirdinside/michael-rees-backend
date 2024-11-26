@@ -6,7 +6,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 2,
-    maxLength: 30,
+    maxLength: 100,
   },
   showTitle: {
     type: Boolean,
@@ -16,7 +16,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: [true, "The role is required"],
     minLength: 2,
-    maxLength: 30,
+    maxLength: 50,
   },
   link: {
     type: String,

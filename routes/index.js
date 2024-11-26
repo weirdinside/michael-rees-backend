@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const portfolio = require("./portfolio");
+const siteData = require("./siteData");
 
 const multer = require("multer");
 
@@ -9,7 +10,13 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.originalname.substring(0, file.originalname.lastIndexOf('.')) + uniqueSuffix + '.' + file.originalname.split('.').pop());
+    cb(
+      null,
+      file.originalname.substring(0, file.originalname.lastIndexOf(".")) +
+        uniqueSuffix +
+        "." +
+        file.originalname.split(".").pop(),
+    );
   },
 });
 
@@ -21,16 +28,16 @@ const {
 } = require("../middlewares/validation");
 
 const { login, register } = require("../controllers/user");
-const { NotFoundError } = require("../utils/errors/NotFoundError");
 const auth = require("../middlewares/auth");
 
 router.use("/portfolio", portfolio);
 
-router.post("/signin", validateLogin, login);
+router.use('/data', siteData)
 
+router.post("/signin", validateLogin, login);
 router.post("/register", validateRegister, register);
 
-router.use("/api/upload", auth, upload.single("file"), (req, res) => {
+router.post("/api/upload", auth, upload.single("file"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "File upload failed" });
   }
@@ -38,6 +45,8 @@ router.use("/api/upload", auth, upload.single("file"), (req, res) => {
 
   return res.status(200).json({ filePath });
 });
+
+router.delete('/api/upload', )
 
 router.use((err, req, res, next) => {
   console.error("Error:", err);

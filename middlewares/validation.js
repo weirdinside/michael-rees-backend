@@ -25,7 +25,7 @@ const validateRegister = celebrate({
 
 const validateProjectBody = celebrate({
   body: Joi.object().keys({
-    title: Joi.string().required().min(2).max(30).messages({
+    title: Joi.string().required().min(2).max(100).messages({
       "string.min": 'The minimum length of the "title" field is 2',
       "string.max": 'The maximum length of the "title" field is 30',
       "string.empty": 'The "title" field must be filled in',
@@ -39,7 +39,7 @@ const validateProjectBody = celebrate({
       "string.uri": "The 'link' field must be a valid URL",
       "string.empty": "The 'link' field must be filled in",
     }),
-    role: Joi.string().required().min(2).max(30).messages({
+    role: Joi.string().required().min(2).max(50).messages({
       "string.min": 'The minimum length of the "role" field is 2',
       "string.max": 'The maximum length of the "role" field is 30',
       "string.empty": 'The "role" field must be filled in',

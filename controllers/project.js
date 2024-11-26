@@ -4,7 +4,6 @@ const { NotFoundError } = require('../utils/errors/NotFoundError')
 
 const createProject = (req, res, next) => {
   const { title, showTitle, link, role, thumbnail } = req.body;
-  console.log(thumbnail)
   Project.create({
     title,
     showTitle,
