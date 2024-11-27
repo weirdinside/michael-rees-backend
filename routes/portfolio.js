@@ -6,8 +6,10 @@ const {
   createProject,
   getProjects,
   deleteProject,
+  editProject,
 } = require("../controllers/project");
 
+router.patch("/:id", auth, editProject);
 router.post("/", auth, createProject);
 router.delete("/:id", auth, validateId, deleteProject);
 router.get("/", getProjects);

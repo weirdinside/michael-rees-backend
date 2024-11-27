@@ -4,6 +4,6 @@ const { getSiteData, editSiteData } = require("../controllers/siteData");
 
 router.get("/", getSiteData);
 
-router.patch("/", editSiteData);
+router.patch("/", auth, editSiteData);
 
 module.exports = router;
