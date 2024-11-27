@@ -23,7 +23,7 @@ app.use(requestLogger);
 app.use(cors());
 app.use('/', router);
 
-app.use('/thumbnails', express.static('thumbnails'))
+app.use('/thumbnails', express.static('thumbnails'));
 
 app.use(errors());
 app.use(errorHandler);

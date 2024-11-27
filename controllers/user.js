@@ -43,7 +43,6 @@ const register = (req, res) => {
     return bcrypt
       .hash(password, 10)
       .then((hash) => {
-        console.log(hash);
         return User.create({ name, password: hash });
       })
       .then((user) => {
@@ -60,7 +59,7 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(name, password)
     .then((user) => {
-      console.log(user)
+
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });

@@ -13,7 +13,6 @@ const createProject = (req, res, next) => {
   })
     .then((item) => res.send({ data: item }))
     .catch((err) => {
-      console.log("something went wrong", err);
       if (err.name === "ValidationError") {
         next(new BadRequestError("Invalid Data"));
       }
@@ -49,13 +48,12 @@ const editProject = (req, res, next) => {
 };
 
 const deleteProject = (req, res, next) => {
-  console.log(req.params);
   const { id } = req.params;
   Project.findById(id)
     .orFail()
     .then(async (project) => {
       await project.deleteOne();
-      res.status(200).send({ data: project._id });
+      res.status(200).send(project);
     })
     .catch((err) => {
       if (err.name === "CastError") {
