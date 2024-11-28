@@ -5,10 +5,11 @@ const { JWT_SECRET } = require("../utils/config");
 const { BadRequestError } = require("../utils/errors/BadRequestError");
 const { UnauthorizedError } = require("../utils/errors/UnauthorizedError");
 const { ConflictError } = require("../utils/errors/ConflictError");
+const { NotFoundError } = require('../utils/errors/NotFoundError')
 
 const getCurrentUser = async (req, res, next) => {
   try {
-    const user = User.findById(req.user._id).orFail();
+    const user = await User.findById(req.user._id).orFail();
     res.status(200).send({ data: user });
   } catch (err) {
     if (err.name === "ValidationError") {
@@ -56,10 +57,6 @@ const login = async (req, res, next) => {
   }
 
   try {
-    if (!name || !password) {
-      throw new BadRequestError("name or password incorrect");
-    }
-
     const user = await User.findUserByCredentials(name, password);
 
     const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
