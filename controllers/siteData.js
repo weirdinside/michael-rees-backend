@@ -1,34 +1,33 @@
 const SiteData = require("../models/siteData");
 const { NotFoundError } = require("../utils/errors/NotFoundError");
 
-const getSiteData = (req, res, next) => {
-  SiteData.find({})
-    .then((data) => res.send(data))
-    .catch((err) => {
-      next(err);
-    });
+const getSiteData = async (req, res, next) => {
+  try {
+    const data = await SiteData.find({});
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
 };
 
-const editSiteData = (req, res, next) => {
+const editSiteData = async (req, res, next) => {
   const dataId = "data";
   const { order, lastEdited } = req.body;
   const update = { order, lastEdited };
-
-  SiteData.findByIdAndUpdate({ _id: dataId }, update, {
-    new: true,
-    runValidators: true,
-  })
-    .then((data) => {
-      if (!data) {
-        throw new NotFoundError("site data not found");
-      }
-
-      return res.status(200).send({ data });
-    })
-    .catch((err) => {
-      console.error(err.name);
-      next(err);
+  try {
+    const data = await SiteData.findByIdAndUpdate({ _id: dataId }, update, {
+      new: true,
+      runValidators: true,
     });
+
+    if (!data) {
+      throw new NotFoundError("site data not found");
+    }
+
+    res.status(200).send({ data });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {

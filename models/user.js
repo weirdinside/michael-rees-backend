@@ -15,25 +15,23 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.findUserByCredentials = function findUserByCredentials(
+userSchema.statics.findUserByCredentials = async function findUserByCredentials(
   name,
   password,
 ) {
-  return this.findOne({ name })
-    .select("+password")
-    .then((user) => {
-      if (!user) {
-        return Promise.reject(new Error("Incorrect name or password"));
-      }
+  const user = await this.findOne({ name }).select("+password");
 
+  if (!user) {
+    throw new Error("Incorrect name or password");
+  }
 
-      return bcrypt.compare(password, user.password).then((matched) => {
-        if (!matched) {
-          return Promise.reject(new Error("Incorrect name or password"));
-        }
-        return user;
-      });
-    });
+  const matched = await bcrypt.compare(password, user.password);
+
+  if (!matched) {
+    throw new Error("Incorrect name or password");
+  }
+
+  return user;
 };
 
 module.exports = mongoose.model("user", userSchema);
