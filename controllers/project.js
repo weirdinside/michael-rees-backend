@@ -34,12 +34,13 @@ const editProject = async (req, res, next) => {
   const { _id, title, showTitle, link, role, thumbnail } = req.body;
   const update = { title, showTitle, link, role, thumbnail };
   try {
-    const data = Project.findByIdAndUpdate(_id, update, {
+    const data = await Project.findByIdAndUpdate(_id, update, {
       new: true,
     }).orFail();
     res.status(200).send(data);
 
   } catch (err){
+    console.log(err);
     if (err.name === "CastError") {
       return next(new BadRequestError("Invalid Data"));
     }
