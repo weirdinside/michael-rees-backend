@@ -26,7 +26,7 @@ const limiter = rateLimit({
 });
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://rees.club', 'http://127.0.0.1:3000', '167.88.45.75:3000'],
+  origin: ['http://localhost:3000', 'https://rees.club', 'http://127.0.0.1:3000', '167.88.45.75'],
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
