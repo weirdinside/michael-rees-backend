@@ -48,7 +48,7 @@ app.use("/thumbnails", cors(), express.static("thumbnails", {
   }
 }));
 
-app.use("/", router);
+app.use("/api", router);
 
 app.use(errors());
 app.use(errorHandler);
