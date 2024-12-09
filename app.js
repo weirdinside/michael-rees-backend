@@ -25,7 +25,15 @@ const limiter = rateLimit({
     legacyHeaders: false,
 });
 
-app.use(cors());
+const corsOptions = {
+  origin: ['https://www.rees.club', 'https://rees.club'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -41,14 +49,14 @@ app.use(
   })
 );
 
-app.use("/thumbnails", cors(), express.static("thumbnails", {
+app.use("/thumbnails", express.static("thumbnails", {
   setHeaders: (res, path) => {
-    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', 'https://www.rees.club');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
   }
 }));
 
-app.use("/api", router);
+app.use("/", router);
 
 app.use(errors());
 app.use(errorHandler);
