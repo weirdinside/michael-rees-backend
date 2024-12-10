@@ -51,7 +51,8 @@ app.use(
 );
 
 app.use('/api/thumbnails', (req, res, next) => {
-  console.log(`Request for file: ${req.originalUrl}`);
+  const requestedFile = path.join(__dirname, 'thumbnails', req.url.split('/').pop());
+  console.log(`Attempting to serve file: ${requestedFile}`);
   next();
 });
 
