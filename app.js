@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 require("dotenv").config();
 const cors = require("cors");
 const { errors } = require("celebrate");
@@ -49,7 +50,12 @@ app.use(
   })
 );
 
-app.use("/api/thumbnails", express.static("thumbnails", {
+app.use('/api/thumbnails', (req, res, next) => {
+  console.log(`Request for file: ${req.originalUrl}`);
+  next();
+});
+
+app.use("/api/thumbnails", express.static(path.join(__dirname, 'thumbnails'), {
   setHeaders: (res, path) => {
     res.set('Access-Control-Allow-Origin', 'https://www.rees.club');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
