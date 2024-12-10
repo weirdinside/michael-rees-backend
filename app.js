@@ -49,7 +49,7 @@ app.use(
   })
 );
 
-app.use("/thumbnails", express.static("thumbnails", {
+app.use("/api/thumbnails", express.static("thumbnails", {
   setHeaders: (res, path) => {
     res.set('Access-Control-Allow-Origin', 'https://www.rees.club');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
