@@ -15,6 +15,16 @@ const siteDataSchema = new mongoose.Schema({
     required: false,
     default: Date.now().toString(),
   },
+  personalWorkOrder: {
+    type: [String],
+    required: false,
+    default: [],
+  },
+  clientWorkOrder: {
+    type: [String],
+    required: false,
+    default: [],
+  },
 });
 
 module.exports = mongoose.model("siteData", siteDataSchema);

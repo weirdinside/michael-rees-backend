@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const projectSchema = new mongoose.Schema({
+  category: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: false
+  },
   title: {
     type: String,
     required: true,
@@ -10,7 +18,7 @@ const projectSchema = new mongoose.Schema({
   },
   showTitle: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   role: {
     type: String,

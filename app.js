@@ -19,15 +19,15 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.on("open", () => console.log("connected to database"));
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 1000,
-    standardHeaders: 'draft-7',
-    legacyHeaders: false,
-});
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     limit: 1000,
+//     standardHeaders: 'draft-7',
+//     legacyHeaders: false,
+// });
 
 const corsOptions = {
-  origin: ['https://www.rees.club', 'https://rees.club'],
+  origin: ['https://www.rees.club', 'https://rees.club', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
@@ -41,7 +41,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.use(limiter);
+// app.use(limiter);
 
 app.use(
   helmet({

@@ -12,8 +12,8 @@ const getSiteData = async (req, res, next) => {
 
 const editSiteData = async (req, res, next) => {
   const dataId = "data";
-  const { order, lastEdited } = req.body;
-  const update = { order, lastEdited };
+  const { order, personalWorkOrder, clientWorkOrder, lastEdited } = req.body;
+  const update = { order, personalWorkOrder, clientWorkOrder, lastEdited };
   try {
     const data = await SiteData.findByIdAndUpdate({ _id: dataId }, update, {
       new: true,

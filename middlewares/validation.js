@@ -7,6 +7,11 @@ const validateURL = (value, helpers) => {
   return helpers.error("string.uri");
 };
 
+const validateCategory = (value, helpers) => {
+  if (value === "personal" || value === "client") return value;
+  return helpers.error("string.invalid");
+};
+
 const validateRegister = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30).messages({
@@ -18,13 +23,17 @@ const validateRegister = celebrate({
       "string.empty": 'The "password" field must be filled in',
     }),
     secret: Joi.string().required().messages({
-      "string.empty": "The secret needs to be filled in"
-    })
-  })
-})
+      "string.empty": "The secret needs to be filled in",
+    }),
+  }),
+});
 
 const validateProjectBody = celebrate({
   body: Joi.object().keys({
+    category: Joi.string().required().custom(validateCategory).messages({
+      "string.invalid": "The category is invalid",
+    }),
+    description: Joi.string(),
     title: Joi.string().required().min(2).max(100).messages({
       "string.min": 'The minimum length of the "title" field is 2',
       "string.max": 'The maximum length of the "title" field is 30',
@@ -33,7 +42,7 @@ const validateProjectBody = celebrate({
     showTitle: Joi.boolean().required().messages({
       "boolean.base": "This field needs to be a boolean",
       "any.required": "This field needes to be populated",
-      "boolean.empty": "This field cannot be empty"
+      "boolean.empty": "This field cannot be empty",
     }),
     link: Joi.string().required().custom(validateURL).messages({
       "string.uri": "The 'link' field must be a valid URL",
@@ -69,5 +78,5 @@ module.exports = {
   validateId,
   validateLogin,
   validateRegister,
-  validateProjectBody
+  validateProjectBody,
 };
