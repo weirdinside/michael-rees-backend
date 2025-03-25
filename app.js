@@ -27,7 +27,7 @@ db.on("open", () => console.log("connected to database"));
 // });
 
 const corsOptions = {
-  origin: ['https://www.rees.club', 'https://rees.club', 'http://localhost:3000'],
+  origin: ['https://www.rees.club', 'https://rees.club', 'https://weirdinside.github.io'],
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
