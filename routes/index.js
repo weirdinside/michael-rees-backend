@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
         .substring(0, file.originalname.lastIndexOf(".")) +
         uniqueSuffix +
         "." +
-        file.originalname.split(".").pop(),
+        file.originalname.split(".").pop()
     );
   },
 });

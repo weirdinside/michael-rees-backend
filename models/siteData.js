@@ -25,6 +25,31 @@ const siteDataSchema = new mongoose.Schema({
     required: false,
     default: [],
   },
+  homeClientList: {
+    type: [String],
+    required: false,
+    default: [],
+  },
+  veronikaVideos: {
+    type: [String],
+    required: false,
+    default: [],
+  },
+  personalWorkDescription: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  clientWorkDescription: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  veronikaWorkDescription: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 module.exports = mongoose.model("siteData", siteDataSchema);

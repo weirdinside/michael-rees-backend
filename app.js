@@ -19,12 +19,12 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.on("open", () => console.log("connected to database"));
 
-// const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000,
-//     limit: 1000,
-//     standardHeaders: 'draft-7',
-//     legacyHeaders: false,
-// });
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 1000,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+});
 
 const corsOptions = {
   origin: ['https://www.rees.club', 'https://rees.club', 'https://weirdinside.github.io'],
