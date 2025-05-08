@@ -50,6 +50,11 @@ const siteDataSchema = new mongoose.Schema({
     required: false,
     default: "",
   },
+  healthEnsuranceDescription: {
+    type: String,
+    required: false,
+    default: "",
+  }
 });
 
 module.exports = mongoose.model("siteData", siteDataSchema);

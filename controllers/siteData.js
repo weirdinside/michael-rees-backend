@@ -22,6 +22,7 @@ const editSiteData = async (req, res, next) => {
     personalWorkDescription,
     clientWorkDescription,
     veronikaWorkDescription,
+    healthEnsuranceDescription,
   } = req.body;
   const update = {
     order,
@@ -33,7 +34,8 @@ const editSiteData = async (req, res, next) => {
     personalWorkOrder,
     personalWorkDescription,
     clientWorkDescription,
-    veronikaWorkDescription
+    veronikaWorkDescription,
+    healthEnsuranceDescription,
   };
   try {
     const data = await SiteData.findByIdAndUpdate({ _id: dataId }, update, {

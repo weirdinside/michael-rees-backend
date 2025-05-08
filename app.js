@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require('path');
+const path = require("path");
 require("dotenv").config();
 const cors = require("cors");
 const { errors } = require("celebrate");
@@ -20,18 +20,26 @@ db.on("error", (error) => console.error(error));
 db.on("open", () => console.log("connected to database"));
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 1000,
-    standardHeaders: 'draft-7',
-    legacyHeaders: false,
+  windowMs: 15 * 60 * 1000,
+  limit: 1000,
+  standardHeaders: "draft-7",
+  legacyHeaders: false,
 });
 
 const corsOptions = {
-  origin: ['https://www.rees.club', 'https://rees.club', 'https://weirdinside.github.io'],
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+  origin: [
+    "https://www.rees.club",
+    "https://rees.club",
+    "https://weirdinside.github.io",
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Access-Control-Allow-Origin",
+  ],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -50,18 +58,25 @@ app.use(
   })
 );
 
-app.use('/api/thumbnails', (req, res, next) => {
-  const requestedFile = path.join(__dirname, 'thumbnails', req.url.split('/').pop());
+app.use("/api/thumbnails", (req, res, next) => {
+  const requestedFile = path.join(
+    __dirname,
+    "thumbnails",
+    req.url.split("/").pop()
+  );
   console.log(`Attempting to serve file: ${requestedFile}`);
   next();
 });
 
-app.use("/api/thumbnails", express.static(path.join(__dirname, 'thumbnails'), {
-  setHeaders: (res, path) => {
-    res.set('Access-Control-Allow-Origin', 'https://www.rees.club');
-    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
-  }
-}));
+app.use(
+  "/api/thumbnails",
+  express.static(path.join(__dirname, "thumbnails"), {
+    setHeaders: (res, path) => {
+      res.set("Access-Control-Allow-Origin", "https://www.rees.club");
+      res.set("Cross-Origin-Resource-Policy", "cross-origin");
+    },
+  })
+);
 
 app.use("/api", router);
 
