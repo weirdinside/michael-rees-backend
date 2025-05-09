@@ -30,6 +30,7 @@ const corsOptions = {
   origin: [
     "https://www.rees.club",
     "https://rees.club",
+    "https://rees.club/",
     "https://weirdinside.github.io",
   ],
   methods: ["GET", "POST", "PATCH", "DELETE"],
@@ -49,7 +50,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-// app.use(limiter);
+app.use(limiter);
 
 app.use(
   helmet({
